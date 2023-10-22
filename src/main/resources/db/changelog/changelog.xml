@@ -37,10 +37,10 @@
             <column name="PRODUCT_ID" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="START_DATE" type="DATE">
+            <column name="START_DATE" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="END_DATE" type="DATE">
+            <column name="END_DATE" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="PRICE_LIST" type="VARCHAR(255)">
@@ -55,19 +55,19 @@
     </changeSet>
 
     <!-- Insert Product -->
-    <changeSet id="insert-product" author="yourname">
+    <changeSet id="insert-product" author="manuel">
         <insert tableName="products">
             <column name="PRODUCT_ID" value="35455" />
         </insert>
     </changeSet>
 
     <!-- Insert Prices -->
-    <changeSet id="insert-prices" author="yourname">
+    <changeSet id="insert-prices" author="manuel">
         <insert tableName="prices">
             <column name="BRAND_ID" value="1" />
             <column name="PRODUCT_ID" value="35455" />
-            <column name="START_DATE" value="2020-06-14" />
-            <column name="END_DATE" value="2020-12-31" />
+            <column name="START_DATE" value="2020-06-14T00:00:00" />
+            <column name="END_DATE" value="2020-12-31T23:59:59" />
             <column name="PRICE_LIST" value="1" />
             <column name="PRIORITY" value="0" />
             <column name="PRICE" value="35.50" />
@@ -75,12 +75,12 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert-prices2" author="yourname">
+    <changeSet id="insert-prices2" author="manuel">
         <insert tableName="prices">
             <column name="BRAND_ID" value="1" />
             <column name="PRODUCT_ID" value="35455" />
-            <column name="START_DATE" value="2020-06-14" />
-            <column name="END_DATE" value="2020-06-14" />
+            <column name="START_DATE" value="2020-06-14T15:00:00" />
+            <column name="END_DATE" value="2020-06-14T18:30:00" />
             <column name="PRICE_LIST" value="2" />
             <column name="PRIORITY" value="1" />
             <column name="PRICE" value="25.45" />
@@ -88,12 +88,12 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert-prices3" author="yourname">
+    <changeSet id="insert-prices3" author="manuel">
         <insert tableName="prices">
             <column name="BRAND_ID" value="1" />
             <column name="PRODUCT_ID" value="35455" />
-            <column name="START_DATE" value="2020-06-15" />
-            <column name="END_DATE" value="2020-06-15" />
+            <column name="START_DATE" value="2020-06-15T00:00:00" />
+            <column name="END_DATE" value="2020-06-15T11:00:00" />
             <column name="PRICE_LIST" value="3" />
             <column name="PRIORITY" value="1" />
             <column name="PRICE" value="30.50" />
@@ -101,12 +101,12 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert-prices4" author="yourname">
+    <changeSet id="insert-prices4" author="manuel">
         <insert tableName="prices">
             <column name="BRAND_ID" value="1" />
             <column name="PRODUCT_ID" value="35455" />
-            <column name="START_DATE" value="2020-06-15" />
-            <column name="END_DATE" value="2020-12-31" />
+            <column name="START_DATE" value="2020-06-15T16:00:00" />
+            <column name="END_DATE" value="2020-12-31T23:59:59" />
             <column name="PRICE_LIST" value="4" />
             <column name="PRIORITY" value="1" />
             <column name="PRICE" value="38.95" />

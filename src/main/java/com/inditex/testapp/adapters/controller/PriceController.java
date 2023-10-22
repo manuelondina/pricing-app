@@ -1,10 +1,9 @@
 package com.inditex.testapp.adapters.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +14,7 @@ import com.inditex.testapp.app.dto.ResponseDTO;
 import com.inditex.testapp.app.services.ResponseService;
 import com.inditex.testapp.app.services.impl.PriceServiceImpl;
 import com.inditex.testapp.app.services.impl.ProductServiceImpl;
+import com.inditex.testapp.domain.exception.ProductNotFoundException;
 import com.inditex.testapp.domain.model.Price;
 import com.inditex.testapp.domain.model.Product;
 
@@ -34,7 +34,7 @@ public class PriceController {
     @GetMapping("/getProductPrice")
     public ResponseEntity<ResponseDTO> getProductPrice(
             @RequestParam Long brandId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date applicationDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime applicationDate,
             @RequestParam Long productId) {
 
         // Retrieve the Product entity using the product ID
@@ -49,7 +49,7 @@ public class PriceController {
                     getProductPrice.getPrice(), getProductPrice.getCurrency());
             return ResponseEntity.ok(responseDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            throw new ProductNotFoundException("Product not found in the given date range");
         }
     }
 

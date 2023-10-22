@@ -2,6 +2,7 @@ package com.inditex.testapp.domain.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,6 @@ public class Product {
     @Column(name = "product_id", unique = true)
     private Long productId;
 
-    @OneToMany(mappedBy = "productId")
+    @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL)
     private List<Price> prices;
 }

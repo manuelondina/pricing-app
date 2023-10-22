@@ -1,7 +1,7 @@
 package com.inditex.testapp.app.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 import lombok.ToString;
@@ -16,7 +16,7 @@ public class ResponseDTO implements Serializable {
 
     private Integer priceList;
 
-    private Date applicationDate;
+    private LocalDateTime applicationDate;
 
     private Double finalPrice;
 
