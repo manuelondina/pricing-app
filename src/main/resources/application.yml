@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: r2dbc:h2:mem:inditexdb
+    url: r2dbc:h2:mem:///inditexdb
     username: sa
     password:
     driverClassName: org.h2.Driver
@@ -10,7 +10,7 @@ spring:
       path: /h2
 
   liquibase:
-    url: jdbc:h2:mem:inditexdb
+    url: jdbc:h2:mem:///inditexdb;DB_CLOSE_DELAY=-1
     enabled: true
     change-log: classpath:/db/changelog/changelog.xml
 

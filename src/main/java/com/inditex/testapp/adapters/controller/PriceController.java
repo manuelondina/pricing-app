@@ -39,13 +39,10 @@ public class PriceController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date applicationDate,
             @RequestParam Long productId) {
 
-        // Retrieve the Product entity using the product ID
         Mono<Product> productMono = productService.getProductById(productId);
 
         return productMono
                 .flatMap(product -> {
-                    // Retrieve the Price entity using the product ID, brand ID, and application
-                    // date
                     Mono<Price> priceMono = dateRangeService.getProductPrice(product, brandId, applicationDate);
 
                     return priceMono
