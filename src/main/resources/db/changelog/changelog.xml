@@ -55,14 +55,14 @@
     </changeSet>
 
     <!-- Insert Product -->
-    <changeSet id="insert-product" author="yourname">
+    <changeSet id="insert-product" author="manuel">
         <insert tableName="products">
             <column name="PRODUCT_ID" value="35455" />
         </insert>
     </changeSet>
 
     <!-- Insert Prices -->
-    <changeSet id="insert-prices" author="yourname">
+    <changeSet id="insert-prices" author="manuel">
         <insert tableName="prices">
             <column name="BRAND_ID" value="1" />
             <column name="PRODUCT_ID" value="35455" />
@@ -75,7 +75,7 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert-prices2" author="yourname">
+    <changeSet id="insert-prices2" author="manuel">
         <insert tableName="prices">
             <column name="BRAND_ID" value="1" />
             <column name="PRODUCT_ID" value="35455" />
@@ -88,7 +88,7 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert-prices3" author="yourname">
+    <changeSet id="insert-prices3" author="manuel">
         <insert tableName="prices">
             <column name="BRAND_ID" value="1" />
             <column name="PRODUCT_ID" value="35455" />
@@ -101,7 +101,7 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert-prices4" author="yourname">
+    <changeSet id="insert-prices4" author="manuel">
         <insert tableName="prices">
             <column name="BRAND_ID" value="1" />
             <column name="PRODUCT_ID" value="35455" />
