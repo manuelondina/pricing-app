@@ -35,7 +35,7 @@ public class Price {
     private Date endDate;
 
     @Column(name = "price_list")
-    private String priceList;
+    private Integer priceList;
 
     private Integer priority;
 

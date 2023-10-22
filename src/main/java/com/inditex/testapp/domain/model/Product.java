@@ -21,7 +21,7 @@ public class Product {
     private Long id;
 
     @Column(name = "product_id", unique = true)
-    private String productId;
+    private Long productId;
 
     @OneToMany(mappedBy = "productId")
     private List<Price> prices;

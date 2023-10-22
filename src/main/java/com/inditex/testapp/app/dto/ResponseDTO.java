@@ -10,16 +10,16 @@ import lombok.ToString;
 @ToString
 public class ResponseDTO implements Serializable {
 
-    private Long id;
-
     private Long productId;
 
     private Long brandId;
 
-    private Date priceList;
+    private Integer priceList;
 
-    private Date requestedDate;
+    private Date applicationDate;
 
-    private String finalPrice;
+    private Double finalPrice;
+
+    private String currency;
 
 }
