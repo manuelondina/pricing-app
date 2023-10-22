@@ -7,6 +7,8 @@ import com.inditex.testapp.app.services.IProductService;
 import com.inditex.testapp.domain.model.Product;
 import com.inditex.testapp.infrastructure.persistance.ProductRepository;
 
+import reactor.core.publisher.Mono;
+
 @Service
 public class ProductServiceImpl implements IProductService {
 
@@ -14,7 +16,7 @@ public class ProductServiceImpl implements IProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product getProductById(Long productId) {
+    public Mono<Product> getProductById(Long productId) {
         return productRepository.findByProductId(productId);
     }
 

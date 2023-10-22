@@ -1,47 +1,47 @@
 package com.inditex.testapp.domain.model;
 
-import java.sql.Date;
+import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import reactor.core.publisher.Flux;
 
-@Entity
 @Data
-@Table(name = "prices")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table("prices")
 public class Price {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "brand_id")
+    @Column("brand_id")
     private Long brandId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-    private Product productId;
+    @MappedCollection(idColumn = "product_id")
+    private Flux<Product> productId;
 
-    @Column(name = "start_date")
+    @Column("start_date")
     private Date startDate;
 
-    @Column(name = "end_date")
+    @Column("end_date")
     private Date endDate;
 
-    @Column(name = "price_list")
+    @Column("price_list")
     private Integer priceList;
 
     private Integer priority;
 
     private Double price;
 
-    @Column(name = "curr")
+    @Column("curr")
     private String currency;
-
 }

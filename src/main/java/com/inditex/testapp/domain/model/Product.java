@@ -1,28 +1,31 @@
 package com.inditex.testapp.domain.model;
 
-import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import reactor.core.publisher.Flux;
 
-@Entity
-@Table(name = "products")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table("products")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_id", unique = true)
+    @Column("product_id")
     private Long productId;
 
-    @OneToMany(mappedBy = "productId")
-    private List<Price> prices;
+    @Transient
+    @MappedCollection(idColumn = "product_id")
+    private Flux<Price> prices;
 }

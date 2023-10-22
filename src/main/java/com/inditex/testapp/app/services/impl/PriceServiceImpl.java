@@ -1,7 +1,6 @@
 package com.inditex.testapp.app.services.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,9 @@ import com.inditex.testapp.domain.model.Price;
 import com.inditex.testapp.domain.model.Product;
 import com.inditex.testapp.infrastructure.persistance.PriceRepository;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 @Service
 public class PriceServiceImpl implements IPriceService {
 
@@ -18,22 +20,14 @@ public class PriceServiceImpl implements IPriceService {
     private PriceRepository priceRepository;
 
     @Override
-    public Price getProductPrice(Product productId, Long brandId, Date date) {
-        List<Price> matchingPrices = priceRepository.findByProductIdAndBrandId(productId, brandId);
+    public Mono<Price> getProductPrice(Product productId, Long brandId, Date date) {
+        Flux<Price> matchingPrices = Flux.fromIterable(priceRepository.findByProductIdAndBrandId(productId, brandId));
 
-        Price selectedPrice = null;
-
-        for (Price price : matchingPrices) {
-            Date startDate = price.getStartDate();
-            Date endDate = price.getEndDate();
-            if (date.after(startDate) && date.before(endDate)) {
-                if (selectedPrice == null || price.getPriority() > selectedPrice.getPriority()) {
-                    selectedPrice = price;
-                }
-            }
-        }
-
-        return selectedPrice;
+        return matchingPrices
+                .filter(price -> date.after(price.getStartDate()) && date.before(price.getEndDate()))
+                .reduce((selectedPrice, currentPrice) -> currentPrice.getPriority() > selectedPrice.getPriority()
+                        ? currentPrice
+                        : selectedPrice);
     }
 
 }

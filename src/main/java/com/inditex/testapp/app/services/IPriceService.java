@@ -5,8 +5,10 @@ import java.util.Date;
 import com.inditex.testapp.domain.model.Price;
 import com.inditex.testapp.domain.model.Product;
 
+import reactor.core.publisher.Mono;
+
 public interface IPriceService {
 
-    Price getProductPrice(Product productId, Long brandId, Date date);
+    Mono<Price> getProductPrice(Product productId, Long brandId, Date date);
 
 }

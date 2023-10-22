@@ -18,6 +18,8 @@ import com.inditex.testapp.app.services.impl.ProductServiceImpl;
 import com.inditex.testapp.domain.model.Price;
 import com.inditex.testapp.domain.model.Product;
 
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping("/prices")
 public class PriceController {
@@ -32,25 +34,30 @@ public class PriceController {
     private ResponseService responseService;
 
     @GetMapping("/getProductPrice")
-    public ResponseEntity<ResponseDTO> getProductPrice(
+    public Mono<ResponseEntity<ResponseDTO>> getProductPrice(
             @RequestParam Long brandId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date applicationDate,
             @RequestParam Long productId) {
 
         // Retrieve the Product entity using the product ID
-        Product product = productService.getProductById(productId);
+        Mono<Product> productMono = productService.getProductById(productId);
 
-        // Retrieve the Price entity using the product ID, brand ID and application date
-        Price getProductPrice = dateRangeService.getProductPrice(product, brandId, applicationDate);
+        return productMono
+                .flatMap(product -> {
+                    // Retrieve the Price entity using the product ID, brand ID, and application
+                    // date
+                    Mono<Price> priceMono = dateRangeService.getProductPrice(product, brandId, applicationDate);
 
-        if (getProductPrice != null) {
-            ResponseDTO responseDTO = responseService.buildResponseDTO(productId, brandId, applicationDate,
-                    getProductPrice.getPriceList(),
-                    getProductPrice.getPrice(), getProductPrice.getCurrency());
-            return ResponseEntity.ok(responseDTO);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+                    return priceMono
+                            .map(getProductPrice -> {
+                                ResponseDTO responseDTO = responseService.buildResponseDTO(productId, brandId,
+                                        applicationDate,
+                                        getProductPrice.getPriceList(),
+                                        getProductPrice.getPrice(), getProductPrice.getCurrency());
+                                return ResponseEntity.ok(responseDTO);
+                            })
+                            .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+                });
     }
 
 }
