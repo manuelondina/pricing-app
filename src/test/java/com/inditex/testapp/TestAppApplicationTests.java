@@ -67,7 +67,7 @@ class TestAppApplicationTests {
 
 	@Test
 	@DisplayName("Expected price is 38.95")
-	public void test5_At21AM_OnDay16th() throws Exception {
+	public void test5_At9PM_OnDay16th() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/prices/getProductPrice")
 				.param("brandId", "1")
 				.param("applicationDate", "2020-06-16 21:00:00")
